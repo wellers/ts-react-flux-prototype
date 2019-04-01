@@ -8,8 +8,9 @@ import { Welcome } from "./components/Welcome";
 
 import { AddContact } from "./components/AddContact";
 import { ListContacts } from "./components/ListContacts";
-import { AddContactStore } from "./stores/AddContactStore";
+import { AddContactStore, UserRequestedEdit, ContactSubmittedAction } from "./stores/AddContactStore";
 import { ListContactsStore, NavigateToListContactsAction } from "./stores/ListContactsStore";
+import { Contact } from "./apis/ContactApi";
 
 import Action = require('./Action');
 
@@ -34,8 +35,20 @@ ReactDOM.render(
             e('div', null,
                 e(Switch, null, 
                     e(Route, { exact: true, path: "/" }, () => e(Welcome, { username: "Paul" })),
-                    e(Route, { path: "/contacts", component: () => e(ListContacts, { dispatcher: dispatcher, store: viewContactStore }) }),
-                    e(Route, { path: "/addcontact", component: () => e(AddContact, { dispatcher: dispatcher, store: addContactStore }) }),
+                    e(Route, { path: "/contacts", 
+                        component: () => e(ListContacts, { 
+                            dispatcher: dispatcher, 
+                            store: viewContactStore 
+                        }) 
+                    }),
+                    e(Route, { path: "/addcontact", 
+                        component: () => e(AddContact, { 
+                            dispatcher: dispatcher, 
+                            store: addContactStore, 
+                            onChange: (model: Contact) => { dispatcher.dispatch(new UserRequestedEdit(model)); },
+                            onSubmit: (model: Contact) => { dispatcher.dispatch(new ContactSubmittedAction(model)); } 
+                        })
+                    }),
                     e(Redirect, { to: "/" })
                 )
             )

@@ -9,9 +9,14 @@ import { ListContactsStore as ListContactsStore } from '../stores/ListContactsSt
 
 const e = React.createElement;
 
-export interface ListContactsProps extends IHaveStore<ListContactsStore> { dispatcher: flux.Dispatcher<Action>; store: ListContactsStore }
+export interface ListContactsProps extends IHaveStore<ListContactsStore> { 
+    dispatcher: flux.Dispatcher<Action>; 
+    store: ListContactsStore 
+}
 
-export interface ListContactsState { contacts: Array<Contact> }
+export interface ListContactsState { 
+    contacts: Array<Contact> 
+}
 
 export class ListContacts extends StatefulComponent<ListContactsProps, ListContactsState> {
     render() {
