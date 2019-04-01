@@ -4,8 +4,4 @@ const e = React.createElement;
 
 export interface WelcomeProps { username: string; }
 
-export class Welcome extends React.Component<WelcomeProps, {}> {
-    render() {
-        return e('p', null, `Welcome ${this.props.username}!`);
-    }
-}
+export const Welcome = (props: WelcomeProps) => e('p', null, `Welcome ${props.username}!`);
