@@ -1,10 +1,14 @@
 import flux = require('flux');
 import Action = require('../Action');
 
-import { Store } from "../Base";
+import { Store } from "../ComponentsBase";
 import { ContactApi, Contact } from "../apis/ContactApi";
 
-export class ListContactsStore extends Store {
+class ListContactViewModel {
+    contacts: Array<Contact>;
+}
+
+export class ListContactsStore extends Store<ListContactViewModel> {
     constructor(dispatcher: flux.Dispatcher<Action>) {
         super();
         this.ViewModel = { contacts: Array<Contact>() };
