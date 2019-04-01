@@ -7,9 +7,9 @@ import { Hello } from "./components/Hello";
 import { Welcome } from "./components/Welcome";
 
 import { AddContact } from "./components/AddContact";
-import { ViewContacts } from "./components/ViewContacts";
+import { ListContacts } from "./components/ListContacts";
 import { AddContactStore } from "./stores/AddContactStore";
-import { ViewContactsStore, NavigateToViewContactsAction } from "./stores/ViewContactsStore";
+import { ListContactsStore, NavigateToListContactsAction } from "./stores/ListContactsStore";
 
 import Action = require('./Action');
 
@@ -17,21 +17,24 @@ const e = React.createElement;
 
 var dispatcher = new flux.Dispatcher<Action>();
 var addContactStore = new AddContactStore(dispatcher);
-var viewContactStore = new ViewContactsStore(dispatcher);
+var viewContactStore = new ListContactsStore(dispatcher);
 
 ReactDOM.render(
     e('div', null,
         Hello({ compiler: "TypeScript", framework: "React" }),
         e(Router, null, 
             e('ul', null, 
-                e('li', null, e(Link, { to: "/" }, "Home")),
-                e('li', null, e(Link, { to: "/contacts", onClick: () => { dispatcher.dispatch(new NavigateToViewContactsAction()); } }, "View contacts")),
-                e('li', null, e(Link, { to: "/addcontact" }, "Add a contact"))
+                e('li', { className: "menu-item" }, 
+                    e(Link, { to: "/" }, "Home")),
+                e('li', { className: "menu-item" }, 
+                    e(Link, { to: "/contacts", onClick: () => { dispatcher.dispatch(new NavigateToListContactsAction()); } }, "List contacts")),
+                e('li', { className: "menu-item" }, 
+                    e(Link, { to: "/addcontact" }, "Add a contact"))
             ),
             e('div', null,
                 e(Switch, null, 
                     e(Route, { exact: true, path: "/" }, () => e(Welcome, { username: "Paul" })),
-                    e(Route, { path: "/contacts", component: () => e(ViewContacts, { dispatcher: dispatcher, store: viewContactStore }) }),
+                    e(Route, { path: "/contacts", component: () => e(ListContacts, { dispatcher: dispatcher, store: viewContactStore }) }),
                     e(Route, { path: "/addcontact", component: () => e(AddContact, { dispatcher: dispatcher, store: addContactStore }) }),
                     e(Redirect, { to: "/" })
                 )
