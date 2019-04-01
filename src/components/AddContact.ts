@@ -5,7 +5,7 @@ import Action = require('../Action')
 import { IHaveStore, StatefulComponent } from "../Base";
 import { TextInput } from "./TextInput";
 import { Contact } from "../apis/ContactApi";
-import { AddContactStore } from '../stores/AddContactStore';
+import { AddContactStore, ContactSubmittedAction } from '../stores/AddContactStore';
 
 const e = React.createElement;
 
@@ -17,6 +17,7 @@ export class AddContact extends StatefulComponent<AddContactProps, Contact> {
             return e("div", null, "Loading. Please wait...");
 
         return e("div", null, 
+            e('h4', null, "Add a contact"),
             TextInput({ 
                 labelText: "Title", 
                 content: this.state.title, 
@@ -38,19 +39,16 @@ export class AddContact extends StatefulComponent<AddContactProps, Contact> {
                     this.setState(new Contact(this.state.title, this.state.firstName, s.currentTarget.value)); 
                 }
             }),
-            e('input', {type: 'submit', value: 'submit', onClick: () => {
-                this.props.dispatcher.dispatch(
-                    new ContactSubmittedAction(this.state)
-                ); 
-            } 
+            e('input', {type: 'submit', value: 'submit', onClick: () => this.submitContact()
         }));
     }
-}
 
-export class ContactSubmittedAction extends Action {
-    contact: Contact;
-    constructor(contact: Contact) {
-        super(Action.Source.View);
-        this.contact = contact;
+    submitContact() {
+        if (this.state.title == "" || this.state.firstName == "" || this.state.surname == "")
+            return;
+
+        this.props.dispatcher.dispatch(
+            new ContactSubmittedAction(this.state)
+        );
     }
 }

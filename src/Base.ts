@@ -9,7 +9,7 @@ export interface IHaveStore<Store> {
     store: Store;
 }
 
-export abstract class StatefulComponent<P extends IHaveStore<Store>, S> extends React.Component<P, S>  {
+export abstract class StatefulComponent<P extends IHaveStore<Store>, S> extends React.Component<P, S>  {     
     constructor(props: P) {
         super(props);
         this.state = this.props.store.ViewModel;
