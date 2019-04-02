@@ -8,8 +8,8 @@ import { Welcome } from "./components/Welcome";
 
 import { AddContact } from "./components/AddContact";
 import { ListContacts } from "./components/ListContacts";
-import { AddContactStore, UserRequestedEdit, ContactSubmittedAction } from "./stores/AddContactStore";
-import { ListContactsStore, NavigateToListContactsAction } from "./stores/ListContactsStore";
+import { AddContactStore, UserRequestedEdit, ContactSubmitted } from "./stores/AddContactStore";
+import { ListContactsStore, NavigateToListContacts } from "./stores/ListContactsStore";
 import { Contact } from "./apis/ContactApi";
 
 import Action = require('./Action');
@@ -28,7 +28,7 @@ ReactDOM.render(
                 e('li', { className: "menu-item" }, 
                     e(Link, { to: "/" }, "Home")),
                 e('li', { className: "menu-item" }, 
-                    e(Link, { to: "/contacts", onClick: () => { dispatcher.dispatch(new NavigateToListContactsAction()); } }, "List contacts")),
+                    e(Link, { to: "/contacts", onClick: () => { dispatcher.dispatch(new NavigateToListContacts()); } }, "List contacts")),
                 e('li', { className: "menu-item" }, 
                     e(Link, { to: "/addcontact" }, "Add a contact"))
             ),
@@ -46,7 +46,7 @@ ReactDOM.render(
                             dispatcher: dispatcher, 
                             store: addContactStore, 
                             onChange: (model: Contact) => { dispatcher.dispatch(new UserRequestedEdit(model)); },
-                            onSubmit: (model: Contact) => { dispatcher.dispatch(new ContactSubmittedAction(model)); } 
+                            onSubmit: (model: Contact) => { dispatcher.dispatch(new ContactSubmitted(model)); } 
                         })
                     }),
                     e(Redirect, { to: "/" })

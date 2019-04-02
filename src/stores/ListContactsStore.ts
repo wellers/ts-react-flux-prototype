@@ -13,7 +13,7 @@ export class ListContactsStore extends Store<ListContactViewModel> {
         super();
         this.ViewModel = { contacts: Array<Contact>() };
         dispatcher.register((a) => {  
-            if (a instanceof NavigateToListContactsAction) {
+            if (a instanceof NavigateToListContacts) {
                 this.ViewModel = { contacts: ContactApi.Contacts };
                 this.Change();
             }
@@ -21,7 +21,7 @@ export class ListContactsStore extends Store<ListContactViewModel> {
    }
 }
 
-export class NavigateToListContactsAction extends Action {
+export class NavigateToListContacts extends Action {
     constructor() {
         super(Action.Source.View);
     }

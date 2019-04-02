@@ -13,7 +13,7 @@ export class AddContactStore extends Store<Contact> {
                 this.ViewModel = a.contact;
                 this.Change();
             }
-            else if (a instanceof ContactSubmittedAction) {
+            else if (a instanceof ContactSubmitted) {
                 ContactApi.AddContact(a.contact);
                 this.ViewModel = new Contact("", "", "");
                 this.Change();
@@ -30,7 +30,7 @@ export class UserRequestedEdit extends Action {
     }
 }
 
-export class ContactSubmittedAction extends Action {
+export class ContactSubmitted extends Action {
     contact: Contact;
     constructor(contact: Contact) {
         super(Action.Source.View);

@@ -1,7 +1,7 @@
 import * as React from "react";
 
-export abstract class Store<S> {
-    ViewModel: S;
+export abstract class Store<TModel> {
+    ViewModel: TModel;
     Change: Function = () => {};
 }
 
@@ -9,8 +9,8 @@ export interface IHaveStore<Store> {
     store: Store;
 }
 
-export abstract class StatefulComponent<P extends IHaveStore<Store<S>>, S> extends React.Component<P, S>  {     
-    constructor(props: P) {
+export abstract class StatefulComponent<TProps extends IHaveStore<Store<TModel>>, TModel> extends React.Component<TProps, TModel>  {     
+    constructor(props: TProps) {
         super(props);
         this.state = this.props.store.ViewModel;
     }
