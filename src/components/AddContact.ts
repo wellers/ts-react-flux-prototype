@@ -12,8 +12,8 @@ const e = React.createElement;
 export interface AddContactProps extends IHaveStore<AddContactStore> { 
     dispatcher: flux.Dispatcher<Action>; 
     store: AddContactStore; 
-    onChange: (model: Contact) => void 
-    onSubmit: (model: Contact) => void 
+    onChange: (model: Contact) => void; 
+    onSubmit: (model: Contact) => void;
 }
 
 export class AddContact extends StatefulComponent<AddContactProps, Contact> {
