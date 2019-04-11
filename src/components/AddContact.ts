@@ -26,17 +26,17 @@ export class AddContact extends StatefulComponent<AddContactProps, Contact> {
             TextInput({ 
                 labelText: "Title", 
                 content: this.state.title, 
-                onChange: s => this.props.onChange(new Contact(s.currentTarget.value, this.state.firstName, this.state.surname))
+                onChange: s => this.props.onChange({...this.state, title: s.currentTarget.value})
             }),
             TextInput({ 
                 labelText: "First name", 
                 content: this.state.firstName,                
-                onChange: s => this.props.onChange(new Contact(this.state.title, s.currentTarget.value, this.state.surname))
+                onChange: s => this.props.onChange({...this.state, firstName: s.currentTarget.value})
             }),
             TextInput({ 
                 labelText: "Surname", 
                 content: this.state.surname, 
-                onChange: s => this.props.onChange(new Contact(this.state.title, this.state.firstName, s.currentTarget.value))                   
+                onChange: s => this.props.onChange({...this.state, surname: s.currentTarget.value})                 
                 
             }),
             e('input', { type: 'submit', value: 'submit', onClick: () => this.submitContact() })
