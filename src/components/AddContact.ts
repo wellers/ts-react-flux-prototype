@@ -29,7 +29,7 @@ export class AddContact extends StatefulComponent<AddContactProps, AddContactVie
                 ? e('div', { className: "error-message" }, "You need to supply a Title, First name and Surname to submit a contact.")
                 : null,
             e('div', null, 
-                e('label', { style: { display: "inline-block", width: "100px", margin: "0 0 10px 0" } }, "Title"), 
+                e('label', { className: "textinput-label" }, "Title"), 
                 e(stringSelectBox, { 
                     viewModel: this.state.title, 
                     onChange: (s: SingleSelectBoxViewModel<string>) => this.props.onChange({...this.state, title: s})
