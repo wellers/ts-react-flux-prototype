@@ -8,9 +8,8 @@ import { Welcome } from "./components/Welcome";
 
 import { AddContact } from "./components/AddContact";
 import { ListContacts } from "./components/ListContacts";
-import { AddContactStore, UserRequestedEdit, ContactSubmitted } from "./stores/AddContactStore";
+import { AddContactStore, UserRequestedEdit, AddContactViewModel } from "./stores/AddContactStore";
 import { ListContactsStore, NavigateToListContacts } from "./stores/ListContactsStore";
-import { Contact } from "./apis/ContactApi";
 
 import Action = require('./Action');
 
@@ -45,8 +44,8 @@ ReactDOM.render(
                         component: () => e(AddContact, { 
                             dispatcher: dispatcher, 
                             store: addContactStore, 
-                            onChange: (model: Contact) => { dispatcher.dispatch(new UserRequestedEdit(model)); },
-                            onSubmit: (model: Contact) => { dispatcher.dispatch(new ContactSubmitted(model)); } 
+                            onChange: (model: AddContactViewModel) => { dispatcher.dispatch(new UserRequestedEdit(model)); },
+                            onSubmit: (model: AddContactViewModel) => { dispatcher.dispatch(new UserRequestedEdit({ ...model, saveRequested: true })); } 
                         })
                     }),
                     e(Redirect, { to: "/" })

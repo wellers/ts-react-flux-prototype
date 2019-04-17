@@ -4,8 +4,7 @@ import * as React from "react";
 import Action = require('../Action')
 import { IHaveStore, StatefulComponent } from "../ComponentsBase";
 
-import { Contact } from "../apis/ContactApi";
-import { ListContactsStore as ListContactsStore } from '../stores/ListContactsStore';
+import { ListContactsStore, ListContactViewModel } from '../stores/ListContactsStore';
 
 const e = React.createElement;
 
@@ -14,11 +13,7 @@ export interface ListContactsProps extends IHaveStore<ListContactsStore> {
     store: ListContactsStore 
 }
 
-export interface ListContactsState { 
-    contacts: Array<Contact> 
-}
-
-export class ListContacts extends StatefulComponent<ListContactsProps, ListContactsState> {
+export class ListContacts extends StatefulComponent<ListContactsProps, ListContactViewModel> {
     render() {
         if (this.state == null)
             return e("div", null, "Loading. Please wait...");

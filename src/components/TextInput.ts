@@ -11,5 +11,5 @@ export interface TextInputProps {
 
 export const TextInput = (props: TextInputProps) => e('div', null, 
     e('label', { style: { display: "inline-block", width: "100px", margin: "0 0 10px 0" }}, props.labelText), 
-    e('input', { type: "text", value: props.content, placeholder: props.placeHolderText, onChange: props.onChange })
+    e('input', { className: "text-input", type: "text", value: props.content, placeholder: props.placeHolderText, onChange: props.onChange })
 );

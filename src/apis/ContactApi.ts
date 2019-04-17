@@ -12,11 +12,11 @@ export class Contact {
 
 export class ContactApi {
     static _contacts: Array<Contact> = [ new Contact("Mr", "Paul", "Welbourne") ];
-    static get Contacts() {
+    static get contacts() {
         return this._contacts;
     }
 
-    static AddContact(contact: Contact) {
+    static addContact(contact: Contact) {
         this._contacts.push(contact);
     }
 }
