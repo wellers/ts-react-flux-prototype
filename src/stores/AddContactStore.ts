@@ -8,8 +8,9 @@ import { SingleSelectBoxViewModel } from "../components/SingleSelectBox";
 export class AddContactStore extends Store<AddContactViewModel> {
     constructor(dispatcher: flux.Dispatcher<Action>) {
         super();
+        
         this.viewModel = this.getDefaultAddContactsViewModel();
-        dispatcher.register((a) => {              
+        dispatcher.register((a: Action) => {              
             if (a instanceof UserRequestedEdit) {
                 this.fix(this.viewModel, a.viewModel);               
                 this.change();
@@ -17,22 +18,15 @@ export class AddContactStore extends Store<AddContactViewModel> {
         });
    }   
 
-   getDefaultAddContactsViewModel(): AddContactViewModel {
-        var dropdownItems = [
-            { label: "None", value: "None" },
-            { label: "Mr", value: "Mr" },
-            { label: "Mrs", value: "Mrs" },
-            { label: "Sir", value: "Sir" },
-            { label: "Madam", value: "Madam" }
-        ];
-    
+   getDefaultAddContactsViewModel(): AddContactViewModel { 
+       var titles = ContactApi.getTitles();
        return new AddContactViewModel(
             {  
                isDropDownOpen: false, 
-               dropdownItems: dropdownItems, 
-               selectedItem: dropdownItems[0], 
+               dropdownItems: titles, 
+               selectedItem: titles[0], 
                disabled: false, 
-               highlightedValue: dropdownItems[0].value
+               highlightedValue: titles[0].value
             },
             "",
             "",

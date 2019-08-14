@@ -12,9 +12,9 @@ export class ListContactsStore extends Store<ListContactViewModel> {
     constructor(dispatcher: flux.Dispatcher<Action>) {
         super();
         this.viewModel = { contacts: Array<Contact>() };
-        dispatcher.register((a) => {  
+        dispatcher.register((a: Action) => {  
             if (a instanceof NavigateToListContacts) {
-                this.viewModel = { contacts: ContactApi.contacts };
+                this.viewModel = { contacts: ContactApi.getContacts() };
                 this.change();
             }
         });

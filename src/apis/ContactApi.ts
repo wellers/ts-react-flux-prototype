@@ -10,14 +10,31 @@ export class Contact {
     }
 }
 
+export interface LabelledItem {
+    label: string;
+    value: string;
+}
+
 // simulated api layer with mocked Contact data
 export class ContactApi {
     static _contacts: Array<Contact> = [ new Contact("Mr", "Paul", "Welbourne") ];
-    static get contacts() {
+    static _titles: Array<LabelledItem> = [
+        { label: "None", value: "None" },
+        { label: "Mr", value: "Mr" },
+        { label: "Mrs", value: "Mrs" },
+        { label: "Sir", value: "Sir" },
+        { label: "Madam", value: "Madam" }
+    ];
+
+    static getContacts() {
         return this._contacts;
+    }
+
+    static getTitles() {
+        return this._titles;
     }
 
     static addContact(contact: Contact) {
         this._contacts.push(contact);
-    }
+    }    
 }
