@@ -29,8 +29,8 @@
     "awesome-typescript-loader": "^3.4.1",
     "source-map-loader": "^0.2.3",
     "typescript": "^3.3.3",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.2.1"
   }
 }

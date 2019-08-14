@@ -11,7 +11,7 @@ import { ListContacts } from "./components/ListContacts";
 import { AddContactStore, UserRequestedEdit, AddContactViewModel } from "./stores/AddContactStore";
 import { ListContactsStore, NavigateToListContacts } from "./stores/ListContactsStore";
 
-import Action = require('./Action');
+import Action = require('./core/Action');
 
 const e = React.createElement;
 

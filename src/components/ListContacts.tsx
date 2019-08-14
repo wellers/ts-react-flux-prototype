@@ -1,8 +1,8 @@
 import flux = require('flux');
 import * as React from "react";
 
-import Action = require('../Action')
-import { IHaveStore, StatefulComponent } from "../ComponentsBase";
+import Action = require('../core/Action')
+import { IHaveStore, StatefulComponent } from "../core/ComponentsBase";
 
 import { ListContactsStore, ListContactViewModel } from '../stores/ListContactsStore';
 

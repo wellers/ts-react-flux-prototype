@@ -1,7 +1,7 @@
 import flux = require('flux');
-import Action = require('../Action');
+import Action = require('../core/Action');
 
-import { Store } from "../ComponentsBase";
+import { Store } from "../core/ComponentsBase";
 import { ContactApi, Contact } from "../apis/ContactApi";
 import { SingleSelectBoxViewModel } from "../components/SingleSelectBox";
 
