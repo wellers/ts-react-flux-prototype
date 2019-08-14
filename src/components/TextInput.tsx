@@ -1,10 +1,11 @@
 import * as React from "react";
+import { EventHandler } from "../core/ComponentsBase";
 
 export interface TextInputProps { 
     labelText: string; 
     content: string; 
     placeHolderText?: string; 
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;  
+    onChange: EventHandler<React.ChangeEvent<HTMLInputElement>>;  
 }
 
 export const TextInput = (props: TextInputProps) => (

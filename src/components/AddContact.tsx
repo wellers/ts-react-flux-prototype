@@ -2,7 +2,7 @@ import flux = require('flux');
 import * as React from "react";
 
 import Action = require('../core/Action')
-import { IHaveStore, StatefulComponent } from "../core/ComponentsBase";
+import { EventHandler, IHaveStore, StatefulComponent } from "../core/ComponentsBase";
 import { TextInput } from "./TextInput";
 import { SingleSelectBox, SingleSelectBoxViewModel } from "./SingleSelectBox";
 import { AddContactStore, AddContactViewModel } from '../stores/AddContactStore';
@@ -10,14 +10,14 @@ import { AddContactStore, AddContactViewModel } from '../stores/AddContactStore'
 export interface AddContactProps extends IHaveStore<AddContactStore> { 
     dispatcher: flux.Dispatcher<Action>; 
     store: AddContactStore; 
-    onChange: (model: AddContactViewModel) => void; 
-    onSubmit: (model: AddContactViewModel) => void;
+    onChange: EventHandler<AddContactViewModel>; 
+    onSubmit: EventHandler<AddContactViewModel>;
 }
 
 export class AddContact extends StatefulComponent<AddContactProps, AddContactViewModel> {
-    readonly _titleOnChange: (s: SingleSelectBoxViewModel<string>) => void;
-    readonly _firstNameOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    readonly _surnameOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    readonly _titleOnChange: EventHandler<SingleSelectBoxViewModel<string>>;
+    readonly _firstNameOnChange: EventHandler<React.ChangeEvent<HTMLInputElement>>;
+    readonly _surnameOnChange: EventHandler<React.ChangeEvent<HTMLInputElement>>;
 
     constructor(props: AddContactProps) {
         super(props);

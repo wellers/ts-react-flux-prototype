@@ -1,4 +1,5 @@
 import * as React from "react";
+import { EventHandler } from "../core/ComponentsBase";
 
 export interface DropDownItem<TValue> {
     label: String;
@@ -15,14 +16,14 @@ export interface SingleSelectBoxViewModel<TValue> {
 
 export class SingleSelectBoxProps<TValue> { 
     viewModel: SingleSelectBoxViewModel<TValue>;
-    onChange: (model: SingleSelectBoxViewModel<TValue>) => void;  
+    onChange: EventHandler<SingleSelectBoxViewModel<TValue>>;  
 }
 
 export class SingleSelectBox<TValue> extends React.PureComponent<SingleSelectBoxProps<TValue>> {
-    readonly _selectedItemMouseDown: (s: React.MouseEvent<HTMLAnchorElement>) => void;
-    readonly _listMouseDown: (s: React.MouseEvent<HTMLUListElement>) => void;
-    readonly _listItemMouseEnter: (s: DropDownItem<TValue>) => void;
-    readonly _listItemOnClick: (s: DropDownItem<TValue>) => void;
+    readonly _selectedItemMouseDown: EventHandler<React.MouseEvent<HTMLAnchorElement>>;
+    readonly _listMouseDown: EventHandler<React.MouseEvent<HTMLUListElement>>;
+    readonly _listItemMouseEnter: EventHandler<DropDownItem<TValue>>;
+    readonly _listItemOnClick: EventHandler<DropDownItem<TValue>>;
 
     constructor(props: SingleSelectBoxProps<TValue>) {
         super(props);

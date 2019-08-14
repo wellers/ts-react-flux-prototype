@@ -1,5 +1,7 @@
 import * as React from "react";
 
+export type EventHandler<T> = (ev: T) => void;
+
 export abstract class Store<TModel> {
     viewModel: TModel;
     change: Function = () => {};
