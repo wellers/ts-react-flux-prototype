@@ -19,8 +19,30 @@ export class SingleSelectBoxProps<TValue> {
 }
 
 export class SingleSelectBox<TValue> extends React.PureComponent<SingleSelectBoxProps<TValue>> {
+    readonly _selectedItemMouseDown: (s: React.MouseEvent<HTMLAnchorElement>) => void;
+    readonly _listMouseDown: (s: React.MouseEvent<HTMLUListElement>) => void;
+    readonly _listItemMouseEnter: (s: DropDownItem<TValue>) => void;
+    readonly _listItemOnClick: (s: DropDownItem<TValue>) => void;
+
     constructor(props: SingleSelectBoxProps<TValue>) {
         super(props);
+        this._selectedItemMouseDown = event => {
+            if (this.props.viewModel.disabled)
+                return;                       
+
+            event.preventDefault();
+
+            var newDropDownOpenState = !this.props.viewModel.isDropDownOpen;
+            var newHighlightedValue: TValue;
+            if (newDropDownOpenState)
+                newHighlightedValue = this.getInitialHighlightValue();
+            else
+                newHighlightedValue = null;
+            this.props.onChange({...this.props.viewModel, isDropDownOpen: newDropDownOpenState, highlightedValue: newHighlightedValue });
+        };
+        this._listMouseDown = () => this.props.onChange({...this.props.viewModel, highlightedValue: null});
+        this._listItemMouseEnter = item => this.props.onChange({...this.props.viewModel, highlightedValue: item.value });
+        this._listItemOnClick = item => this.props.onChange({...this.props.viewModel, isDropDownOpen: false, selectedItem: item });
     }
 
     getInitialHighlightValue() : TValue {
@@ -34,20 +56,7 @@ export class SingleSelectBox<TValue> extends React.PureComponent<SingleSelectBox
         return (
             <a className="selected-item"
                 onClick={() => event.preventDefault()}
-                onMouseDown={() => {
-                    if (this.props.viewModel.disabled)
-                        return;                       
-    
-                    event.preventDefault();
-    
-                    var newDropDownOpenState = !this.props.viewModel.isDropDownOpen;
-                    var newHighlightedValue: TValue;
-                    if (newDropDownOpenState)
-                        newHighlightedValue = this.getInitialHighlightValue();
-                    else
-                        newHighlightedValue = null;
-                    this.props.onChange({...this.props.viewModel, isDropDownOpen: newDropDownOpenState, highlightedValue: newHighlightedValue });
-                }}>{this.props.viewModel.selectedItem.label}</a>
+                onMouseDown={event => this._selectedItemMouseDown(event)}>{this.props.viewModel.selectedItem.label}</a>
         );        
     }
 
@@ -56,7 +65,7 @@ export class SingleSelectBox<TValue> extends React.PureComponent<SingleSelectBox
             return;
 
         return (            
-            <ul onMouseOut={() => this.props.onChange({...this.props.viewModel, highlightedValue: null})}>
+            <ul onMouseOut={event => this._listMouseDown(event)}>
                 {
                     this.props.viewModel.dropdownItems.map((item, i) => {
                         var isValueSelected = this.props.viewModel.selectedItem.value == item.value;
@@ -65,8 +74,8 @@ export class SingleSelectBox<TValue> extends React.PureComponent<SingleSelectBox
                         return (
                             <li key={i} 
                                 className={(isValueSelected ? "selected " : "") + (isValueHighlighted ? "highlighted " : "")} 
-                                onMouseEnter= {() => this.props.onChange({...this.props.viewModel, highlightedValue: item.value })}
-                                onClick={() => this.props.onChange({...this.props.viewModel, isDropDownOpen: false, selectedItem: item })}>
+                                onMouseEnter= {() => this._listItemMouseEnter(item)}
+                                onClick={() => this._listItemOnClick(item)}>
                                 {item.label}
                             </li>);
                     })

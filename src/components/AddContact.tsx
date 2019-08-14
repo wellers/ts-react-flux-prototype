@@ -15,9 +15,16 @@ export interface AddContactProps extends IHaveStore<AddContactStore> {
 }
 
 export class AddContact extends StatefulComponent<AddContactProps, AddContactViewModel> {
-    readonly _titleOnChange = (s: SingleSelectBoxViewModel<string>) => this.props.onChange({...this.state, title: s});
-    readonly _firstNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => this.props.onChange({...this.state, firstName: e.currentTarget.value});
-    readonly _surnameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => this.props.onChange({...this.state, surname: e.currentTarget.value});
+    readonly _titleOnChange: (s: SingleSelectBoxViewModel<string>) => void;
+    readonly _firstNameOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    readonly _surnameOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+
+    constructor(props: AddContactProps) {
+        super(props);
+        this._titleOnChange = (s: SingleSelectBoxViewModel<string>) => this.props.onChange({...this.state, title: s});
+        this._firstNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => this.props.onChange({...this.state, firstName: e.currentTarget.value});
+        this._surnameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => this.props.onChange({...this.state, surname: e.currentTarget.value});
+    }
 
     render() {
         if (this.state == null)
