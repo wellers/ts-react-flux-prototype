@@ -15,6 +15,10 @@ export interface AddContactProps extends IHaveStore<AddContactStore> {
 }
 
 export class AddContact extends StatefulComponent<AddContactProps, AddContactViewModel> {
+    readonly _titleOnChange = (s: SingleSelectBoxViewModel<string>) => this.props.onChange({...this.state, title: s});
+    readonly _firstNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => this.props.onChange({...this.state, firstName: e.currentTarget.value});
+    readonly _surnameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => this.props.onChange({...this.state, surname: e.currentTarget.value});
+
     render() {
         if (this.state == null)
             return (<div>Loading. Please wait...</div>);
@@ -25,10 +29,10 @@ export class AddContact extends StatefulComponent<AddContactProps, AddContactVie
                 {this.state.showValidationError ? <div className="error-message">You need to supply a Title, First name and Surname to submit a contact.</div> : null}
                 <div>
                     <label className="textinput-label">Title</label>
-                    <SingleSelectBox viewModel={this.state.title} onChange={(s: SingleSelectBoxViewModel<string>) => this.props.onChange({...this.state, title: s})} />
+                    <SingleSelectBox viewModel={this.state.title} onChange={s => this._titleOnChange(s)} />
                 </div>
-                <TextInput labelText="First name" content={this.state.firstName} onChange={s => this.props.onChange({...this.state, firstName: s.currentTarget.value})} />
-                <TextInput labelText="Surname" content={this.state.surname} onChange={s => this.props.onChange({...this.state, surname: s.currentTarget.value})} />
+                <TextInput labelText="First name" content={this.state.firstName} onChange={e => this._firstNameOnChange(e)} />
+                <TextInput labelText="Surname" content={this.state.surname} onChange={e => this._surnameOnChange(e)} />
                 <input type="submit" value="submit" onClick={() => this.submitContact()} />
             </div>
         );        

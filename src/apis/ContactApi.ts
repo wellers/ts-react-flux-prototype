@@ -1,4 +1,4 @@
-
+// api types
 export class Contact {
     title: string;
     firstName: string;
@@ -10,6 +10,7 @@ export class Contact {
     }
 }
 
+// simulated api layer with mocked Contact data
 export class ContactApi {
     static _contacts: Array<Contact> = [ new Contact("Mr", "Paul", "Welbourne") ];
     static get contacts() {

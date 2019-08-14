@@ -4,7 +4,7 @@ export interface TextInputProps {
     labelText: string; 
     content: string; 
     placeHolderText?: string; 
-    onChange: (event: React.ChangeEvent<HTMLButtonElement>) => void;  
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;  
 }
 
 export const TextInput = (props: TextInputProps) => (

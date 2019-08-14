@@ -37,12 +37,14 @@ ReactDOM.render(
             <div>
                 <Switch>
                     <Route exact path="/" component={() => e(Welcome, { username: "Paul" })}></Route>
-                    <Route exact path="/contacts" component={() => e(ListContacts, { 
+                    <Route exact path="/contacts" component={() => 
+                        e(ListContacts, { 
                             dispatcher: dispatcher, 
                             store: viewContactStore 
                         })}>
                     </Route>
-                    <Route exact path="/addcontact" component={() => e(AddContact, { 
+                    <Route exact path="/addcontact" component={() => 
+                        e(AddContact, { 
                             dispatcher: dispatcher, 
                             store: addContactStore, 
                             onChange: (model: AddContactViewModel) => { dispatcher.dispatch(new UserRequestedEdit(model)); },
