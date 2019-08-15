@@ -27,23 +27,25 @@ export class SingleSelectBox<TValue> extends React.PureComponent<SingleSelectBox
 
     constructor(props: SingleSelectBoxProps<TValue>) {
         super(props);
-        this._selectedItemMouseDown = event => {
-            if (this.props.viewModel.disabled)
-                return;                       
-
-            event.preventDefault();
-
-            var newDropDownOpenState = !this.props.viewModel.isDropDownOpen;
-            var newHighlightedValue: TValue;
-            if (newDropDownOpenState)
-                newHighlightedValue = this.getInitialHighlightValue();
-            else
-                newHighlightedValue = null;
-            this.props.onChange({...this.props.viewModel, isDropDownOpen: newDropDownOpenState, highlightedValue: newHighlightedValue });
-        };
+        this._selectedItemMouseDown = event => this.onSelectedItemMouseDown(event);
         this._listMouseDown = () => this.props.onChange({...this.props.viewModel, highlightedValue: null});
         this._listItemMouseEnter = item => this.props.onChange({...this.props.viewModel, highlightedValue: item.value });
         this._listItemOnClick = item => this.props.onChange({...this.props.viewModel, isDropDownOpen: false, selectedItem: item });
+    }
+
+    onSelectedItemMouseDown(event: React.MouseEvent<HTMLAnchorElement>) {
+        if (this.props.viewModel.disabled)
+        return;                       
+
+        event.preventDefault();
+
+        var newDropDownOpenState = !this.props.viewModel.isDropDownOpen;
+        var newHighlightedValue: TValue;
+        if (newDropDownOpenState)
+            newHighlightedValue = this.getInitialHighlightValue();
+        else
+            newHighlightedValue = null;
+        this.props.onChange({...this.props.viewModel, isDropDownOpen: newDropDownOpenState, highlightedValue: newHighlightedValue });
     }
 
     getInitialHighlightValue() : TValue {
