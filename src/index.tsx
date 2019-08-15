@@ -13,8 +13,6 @@ import { ListContactsStore, NavigateToListContacts } from "./stores/ListContacts
 
 import Action = require('./core/Action');
 
-const e = React.createElement;
-
 var dispatcher = new flux.Dispatcher<Action>();
 var addContactStore = new AddContactStore(dispatcher);
 var viewContactStore = new ListContactsStore(dispatcher);
@@ -28,7 +26,7 @@ ReactDOM.render(
                     <Link to="/">Home</Link>
                 </li>
                 <li className="menu-item">
-                    <Link to="/contacts" onClick={() => { dispatcher.dispatch(new NavigateToListContacts())}}>List contacts</Link>
+                    <Link to="/contacts" onClick={() => { dispatcher.dispatch(new NavigateToListContacts()) }}>List contacts</Link>
                 </li>
                 <li className="menu-item">
                     <Link to="/addcontact">Add contact</Link>
@@ -36,20 +34,22 @@ ReactDOM.render(
             </ul>
             <div>
                 <Switch>
-                    <Route exact path="/" component={() => e(Welcome, { username: "Paul" })}></Route>
+                    <Route exact path="/" component={() => <Welcome username="Paul"></Welcome>}></Route>
                     <Route exact path="/contacts" component={() => 
-                        e(ListContacts, { 
-                            dispatcher: dispatcher, 
-                            store: viewContactStore 
-                        })}>
+                        <ListContacts 
+                            dispatcher={dispatcher}
+                            store={viewContactStore}>
+                        </ListContacts>
+                    }>
                     </Route>
                     <Route exact path="/addcontact" component={() => 
-                        e(AddContact, { 
-                            dispatcher: dispatcher, 
-                            store: addContactStore, 
-                            onChange: (model: AddContactViewModel) => { dispatcher.dispatch(new UserRequestedEdit(model)); },
-                            onSubmit: (model: AddContactViewModel) => { dispatcher.dispatch(new UserRequestedEdit({...model, saveRequested: true })); } 
-                        })}>
+                        <AddContact 
+                            dispatcher={dispatcher} 
+                            store={addContactStore}
+                            onChange={(model: AddContactViewModel) => { dispatcher.dispatch(new UserRequestedEdit(model)); }}
+                            onSubmit={(model: AddContactViewModel) => { dispatcher.dispatch(new UserRequestedEdit({...model, saveRequested: true })); }}>
+                        </AddContact>
+                    }>
                     </Route>
                     <Redirect to="/" />
                 </Switch>
